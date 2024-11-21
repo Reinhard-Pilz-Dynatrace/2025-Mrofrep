@@ -133,17 +133,26 @@ public class FrontendServer {
 	}
 
 	private static void reportPurchases(Product product) {
-		Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+		Attributes attributes = Attributes.builder()
+        .put(AttributeKey.stringKey("product"), product.getName())
+        .build();
+		
 		confirmedPurchasesCounter.add(1, attributes);	
 	}
 
 	private static void reportExpectedRevenue(Product product) {
-		Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+		Attributes attributes = Attributes.builder()
+        .put(AttributeKey.stringKey("product"), product.getName())
+        .build();
+		
 		expectedRevenueCounter.add(product.getPrice(), attributes);
 	}	
 
 	private static void reportActualRevenue(Product product) {
-		Attributes attributes = Attributes.of(AttributeKey.stringKey("product"), product.getName());
+		Attributes attributes = Attributes.builder()
+        .put(AttributeKey.stringKey("product"), product.getName())
+        .build();
+		
 		actualRevenueCounter.add(product.getPrice(), attributes);		
 	}
 }
