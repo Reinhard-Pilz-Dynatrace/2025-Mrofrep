@@ -37,7 +37,7 @@ public class Database {
     private static AtomicLong lastLogTS = new AtomicLong(0);
 
     static {
-        Attributes attributes = Attributes.of(AttributeKey.stringKey("tier"), System.getenv("DEMO_PURPOSE"));
+        Attributes attributes = Attributes.of(AttributeKey.stringKey("tier"), System.getenv("DEMO_PURPOSE"),AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"));
         activeConnectionsCounter.add(activeConnections.get(), attributes);
     }
 
@@ -64,7 +64,7 @@ public class Database {
         numActiveConnections = activeConnections.incrementAndGet();
         log("Active Connection: " + numActiveConnections);
         
-        Attributes attributes = Attributes.of(AttributeKey.stringKey("tier"), System.getenv("DEMO_PURPOSE"));
+        Attributes attributes = Attributes.of(AttributeKey.stringKey("tier"), System.getenv("DEMO_PURPOSE"),AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"));
         activeConnectionsCounter.add(1, attributes);
         return newConnection();
     }
@@ -91,7 +91,7 @@ public class Database {
     		return;
     	}
         activeConnections.decrementAndGet();        
-        Attributes attributes = Attributes.of(AttributeKey.stringKey("tier"), System.getenv("DEMO_PURPOSE"));
+        Attributes attributes = Attributes.of(AttributeKey.stringKey("tier"), System.getenv("DEMO_PURPOSE"),AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"));
         activeConnectionsCounter.add(-1, attributes);
     }
 
