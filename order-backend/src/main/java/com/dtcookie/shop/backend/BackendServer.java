@@ -129,9 +129,7 @@ public class BackendServer {
 		String productName = url.substring(url.lastIndexOf("/"));
 		int quantity = 1;				
 
-		Context ctx = openTelemetry.getPropagators().getTextMapPropagator().extract(Context.current(), request, getter);
-
-		try (Scope ctScope = ctx.makeCurrent()) {
+		try (Scope ctScope = Context.current().makeCurrent()) {
 			Span serverSpan = tracer.spanBuilder(request.getRequestURI()).setSpanKind(SpanKind.SERVER)
 					.startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
