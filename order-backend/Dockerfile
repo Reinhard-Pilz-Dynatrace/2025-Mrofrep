@@ -46,6 +46,9 @@ COPY --from=build /app/order-backend/target/order-backend-1.0-SNAPSHOT-all.jar o
 COPY --from=build /app/opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 # COPY opentelemetry-javaagent.jar opentelemetry-javaagent.jar
 
+ENV OTEL_INSTRUMENTATION_JETTY_ENABLED=false
+ENV OTEL_INSTRUMENTATION_SERVLET_ENABLED=false
+
 EXPOSE 8080
 
 ENTRYPOINT ["java", "-javaagent:opentelemetry-javaagent.jar", "-jar", "order-backend.jar"]
