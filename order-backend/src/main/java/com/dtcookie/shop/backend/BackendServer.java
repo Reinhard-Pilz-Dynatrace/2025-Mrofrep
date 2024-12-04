@@ -131,7 +131,7 @@ public class BackendServer {
 
 		
 
-		try (Scope ctScope = Context.current()) {
+		try (Scope ctScope = Context.current().makeCurrent()) {
 			Span serverSpan = tracer.spanBuilder(request.getRequestURI()).setSpanKind(SpanKind.SERVER)
 					.startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
