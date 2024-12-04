@@ -131,7 +131,7 @@ public class BackendServer {
 
 		
 
-		try (Scope ctScope = ctx.makeCurrent()) {
+		try (Scope ctScope = Context.current()) {
 			Span serverSpan = tracer.spanBuilder(request.getRequestURI()).setSpanKind(SpanKind.SERVER)
 					.startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
@@ -175,7 +175,12 @@ public class BackendServer {
 	}
 
 	public static void deductFromLocation(StorageLocation location, String productName, int quantity) {
-		location.deduct(productName, quantity);
+		Span span = tracer.spanBuilder("deduct").setSpanKind(SpanKind.INTERNAL).startSpan();
+		try (Scope scope = span.makeCurrent()) {
+		  location.deduct(productName, quantity);
+		} finally {
+		  span.end();
+		}
 	}
 
 	public static Object postProcess() throws Exception {
