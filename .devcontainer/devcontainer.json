@@ -16,7 +16,12 @@
           "pivotal.vscode-spring-boot",
           "redhat.vscode-xml",
           "ms-python.python"
-        ]
+        ],
+        "settings": {
+          "java.import.gradle.enabled": true,
+          "java.import.maven.enabled": true,
+          "java.configuration.updateBuildConfiguration": "automatic"
+        }
       }
     },
     "remoteEnv": {
