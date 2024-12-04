@@ -51,5 +51,4 @@ ENV OTEL_INSTRUMENTATION_SERVLET_ENABLED=false
 
 EXPOSE 8080
 
-ENTRYPOINT ["java", "-javaagent:opentelemetry-javaagent.jar", "-jar", "order-backend.jar"]
-# ENTRYPOINT ["java", "-jar", "backend.jar"]
+ENTRYPOINT ["java", "-jar", "order-backend.jar"]
