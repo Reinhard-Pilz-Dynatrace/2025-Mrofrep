@@ -129,7 +129,9 @@ public class BackendServer {
 		String productName = url.substring(url.lastIndexOf("/"));
 		int quantity = 1;				
 
-		try (Scope ctScope = Context.current().makeCurrent()) {
+		
+
+		try (Scope ctScope = ctx.makeCurrent()) {
 			Span serverSpan = tracer.spanBuilder(request.getRequestURI()).setSpanKind(SpanKind.SERVER)
 					.startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
