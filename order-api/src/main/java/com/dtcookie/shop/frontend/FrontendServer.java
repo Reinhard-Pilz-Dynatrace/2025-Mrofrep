@@ -135,6 +135,7 @@ public class FrontendServer {
 	private static void reportPurchases(Product product) {
 		Attributes attributes = Attributes.builder()
         .put(AttributeKey.stringKey("product"), product.getName())
+		.put(AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"))
         .build();
 		
 		confirmedPurchasesCounter.add(1, attributes);	
@@ -143,6 +144,7 @@ public class FrontendServer {
 	private static void reportExpectedRevenue(Product product) {
 		Attributes attributes = Attributes.builder()
         .put(AttributeKey.stringKey("product"), product.getName())
+		.put(AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"))
         .build();
 		
 		expectedRevenueCounter.add(product.getPrice(), attributes);
