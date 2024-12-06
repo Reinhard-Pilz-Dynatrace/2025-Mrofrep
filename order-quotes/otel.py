@@ -5,14 +5,15 @@ from opentelemetry.sdk.resources import Resource
 from opentelemetry.semconv.resource import ResourceAttributes
 from opentelemetry.sdk.trace import TracerProvider, sampling
 from opentelemetry.sdk.trace.export import BatchSpanProcessor
+import os
 
 # Import exporters
 from opentelemetry.exporter.otlp.proto.http.trace_exporter import OTLPSpanExporter
 from opentelemetry.exporter.otlp.proto.http.metric_exporter import OTLPMetricExporter
 from opentelemetry.exporter.otlp.proto.http._log_exporter import OTLPLogExporter
 
-#DT_API_URL = ""
-#DT_API_TOKEN = ""
+DT_ENVIRONMENT_HOST = os.getenv("DT_ENVIRONMENT_HOST")
+DT_API_TOKEN = os.getenv("DT_API_TOKEN")
 
 """A class for controlling custom OpenTelemetry behavior"""
 class CustomOpenTelemetry():
@@ -46,9 +47,8 @@ class CustomOpenTelemetry():
         )
         tracer_provider.add_span_processor(
             BatchSpanProcessor(OTLPSpanExporter(                
-                endpoint="http://opentelemetry-collector:4318/v1/traces"
-                # endpoint = DT_API_URL + "/v1/traces",
-                # headers = {"Authorization": "Api-Token " + DT_API_TOKEN}
+                endpoint="https://" + DT_ENVIRONMENT_HOST + "/api/v2/otlp/v1/traces",
+                headers = {"Authorization": "Api-Token " + DT_API_TOKEN}
             ))
         )
         trace.set_tracer_provider(tracer_provider)

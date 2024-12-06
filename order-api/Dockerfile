@@ -24,6 +24,8 @@ FROM ${DT_CODE_MODULE} AS codemodules
 FROM openjdk:17.0.1-jdk-slim
 
 ARG GITHUB_USER
+ARG DT_API_TOKEN
+ARG DT_ENVIRONMENT_HOST
 COPY --from=codemodules / /
 ENV LD_PRELOAD=/opt/dynatrace/oneagent/agent/lib64/liboneagentproc.so
 
@@ -33,15 +35,16 @@ ENV OTEL_TRACES_EXPORTER=none
 ENV OTEL_SERVICE_NAME=order-api-${GITHUB_USER}
 ENV OTEL_METRICS_EXPORTER=otlp
 ENV OTEL_EXPORTER_OTLP_METRICS_PROTOCOL=http/protobuf
-ENV OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=http://opentelemetry-collector:4318/v1/metrics
+ENV OTEL_EXPORTER_OTLP_METRICS_ENDPOINT=https://${DT_ENVIRONMENT_HOST}/api/v2/otlp/v1/metrics
 ENV OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED=true
 ENV OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA
-# ENV OTEL_EXPORTER_OTLP_METRICS_HEADERS=Authorization=Api-Token dt0c01.########################.################################################################
+ENV OTEL_EXPORTER_OTLP_METRICS_HEADERS="Authorization=Api-Token ${DT_API_TOKEN}"
 
 ENV OTEL_LOGS_EXPORTER=otlp
 ENV OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=http/protobuf
-ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=http://opentelemetry-collector:4318/v1/logs
-# ENV OTEL_EXPORTER_OTLP_LOGS_HEADERS=Authorization=Api-Token dt0c01.########################.################################################################
+ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=https://${DT_ENVIRONMENT_HOST}/api/v2/otlp/v1/logs
+ENV OTEL_EXPORTER_OTLP_LOGS_HEADERS="Authorization=Api-Token ${DT_API_TOKEN}"
+
 ARG GITHUB_USER
 WORKDIR /app
 ARG GITHUB_USER

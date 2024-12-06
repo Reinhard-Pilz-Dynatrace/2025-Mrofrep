@@ -4,12 +4,15 @@ services:
     hostname: order-backend-${GITHUB_USER}
     environment:
       - GITHUB_USER=${GITHUB_USER}
+      - DT_API_TOKEN=${DT_API_TOKEN}
       - DT_TAGS=GITHUB_USER=${GITHUB_USER}
     build:
       context: .
       dockerfile: ./order-backend/Dockerfile
       args:
         GITHUB_USER: ${GITHUB_USER}
+        DT_ENVIRONMENT_HOST: ${DT_ENVIRONMENT_HOST}
+        DT_API_TOKEN: ${DT_API_TOKEN}
     image: shop/order-backend:latest
     depends_on:
       - order-quotes
@@ -23,6 +26,8 @@ services:
     hostname: order-api-${GITHUB_USER}
     environment:
       - GITHUB_USER=${GITHUB_USER}
+      - DT_API_TOKEN=${DT_API_TOKEN}
+      - DT_ENVIRONMENT_HOST=${DT_ENVIRONMENT_HOST}
       - DT_TAGS=GITHUB_USER=${GITHUB_USER}
     build:
       context: .
@@ -30,6 +35,8 @@ services:
       args:
         DT_CODE_MODULE: "${DT_ENVIRONMENT_HOST}/linux/oneagent-codemodules:java"
         GITHUB_USER: ${GITHUB_USER}
+        DT_ENVIRONMENT_HOST: ${DT_ENVIRONMENT_HOST}
+        DT_API_TOKEN: ${DT_API_TOKEN}
     image: shop/order-api:latest
     entrypoint: ["sh", "-c", "java -jar order-api-${GITHUB_USER}.jar"]
     depends_on:
@@ -43,12 +50,16 @@ services:
     hostname: order-quotes-${GITHUB_USER}
     environment:
       - GITHUB_USER=${GITHUB_USER}
+      - DT_API_TOKEN=${DT_API_TOKEN}
+      - DT_ENVIRONMENT_HOST=${DT_ENVIRONMENT_HOST}
       - DT_TAGS=GITHUB_USER=${GITHUB_USER}
     build:
       context: .
       dockerfile: ./order-quotes/Dockerfile
       args:
         GITHUB_USER: ${GITHUB_USER}
+        DT_API_TOKEN: ${DT_API_TOKEN}
+        DT_ENVIRONMENT_HOST: ${DT_ENVIRONMENT_HOST}
     image: shop/order-quotes:latest
     depends_on:
       - opentelemetry-collector
