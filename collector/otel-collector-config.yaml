@@ -8,6 +8,12 @@ receivers:
 
 processors:
   batch:
+  metricstransform:
+    transforms:
+      - include: ^shop\.(.*)$$
+        match_type: regexp
+        action: update
+        new_name: ${GITHUB_USER}.shop.$${1}
   filter:
     metrics:
       exclude:
@@ -29,14 +35,14 @@ service:
       receivers: [otlp]
       processors: [batch]
       exporters: [debug, otlphttp]
-    logs:
-     receivers: [otlp]
-     processors: [batch]
-     exporters: [debug, otlphttp]
     metrics:
-      receivers: [otlp]
-      processors: [batch, filter]
-      exporters: [debug, otlphttp]
+      receivers: []
+      processors: []
+      exporters: []
+    logs:
+     receivers: []
+     processors: []
+     exporters: []
   #telemetry:
   #  logs:
-  #    level: debug" >/etc/otelcol/config.yaml
+  #    level: debug
