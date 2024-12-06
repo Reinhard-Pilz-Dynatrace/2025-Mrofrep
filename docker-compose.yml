@@ -73,11 +73,12 @@ services:
       - app-network
 
   opentelemetry-collector:
-    # image: otel/opentelemetry-collector:latest
-    image: ghcr.io/dynatrace/dynatrace-otel-collector/dynatrace-otel-collector:latest
+    image: otel/opentelemetry-collector-contrib:latest
+    # image: ghcr.io/dynatrace/dynatrace-otel-collector/dynatrace-otel-collector:latest
     environment:
       - ENVIRONMENT_ID=${ENVIRONMENT_ID}
-      - DT_API_TOKEN=${DT_API_TOKEN}    
+      - DT_API_TOKEN=${DT_API_TOKEN}
+      - GITHUB_USER=${GITHUB_USER}
     container_name: opentelemetry-collector
     volumes:
       - ./collector/otel-collector-config.yaml:/etc/otel-collector-config.yaml
