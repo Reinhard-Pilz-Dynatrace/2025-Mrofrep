@@ -25,6 +25,8 @@ exporters:
   debug:
     verbosity: normal
   otlphttp:
+    #endpoint: https://${ENVIRONMENT_ID}.dev.dynatracelabs.com/api/v2/otlp
+    #endpoint: https://${ENVIRONMENT_ID}.sprint.dynatracelabs.com/api/v2/otlp
     endpoint: https://${ENVIRONMENT_ID}.live.dynatrace.com/api/v2/otlp
     headers:
       Authorization: "Api-Token ${DT_API_TOKEN}"
