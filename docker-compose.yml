@@ -87,7 +87,7 @@ services:
     image: otel/opentelemetry-collector-contrib:latest
     # image: ghcr.io/dynatrace/dynatrace-otel-collector/dynatrace-otel-collector:latest
     environment:
-      - ENVIRONMENT_ID=${ENVIRONMENT_ID}
+      - DT_ENVIRONMENT_HOST=${DT_ENVIRONMENT_HOST}
       - DT_API_TOKEN=${DT_API_TOKEN}
       - GITHUB_USER=${GITHUB_USER}
     container_name: opentelemetry-collector
