@@ -10,24 +10,22 @@ processors:
   batch:
   metricstransform:
     transforms:
-      - include: ^shop\.(.*)$$
+      - include: ^jvm\.(.*)$$
         match_type: regexp
         action: update
-        new_name: ${GITHUB_USER}.shop.$${1}
+        new_name: ${GITHUB_USER}.otel.jvm.$${1}
   filter:
     metrics:
       exclude:
         match_type: regexp
         metric_names:
-          - process.runtime.jvm.system.*
+          - (.*)\.otel.jvm.class.*
 
 exporters:
   debug:
     verbosity: normal
   otlphttp:
-    #endpoint: https://${ENVIRONMENT_ID}.dev.dynatracelabs.com/api/v2/otlp
-    #endpoint: https://${ENVIRONMENT_ID}.sprint.dynatracelabs.com/api/v2/otlp
-    endpoint: https://${ENVIRONMENT_ID}.live.dynatrace.com/api/v2/otlp
+    endpoint: https://${DT_ENVIRONMENT_HOST}/api/v2/otlp
     headers:
       Authorization: "Api-Token ${DT_API_TOKEN}"
 
@@ -36,15 +34,11 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug, otlphttp]
+      exporters: [debug]
     metrics:
-      receivers: []
-      processors: []
-      exporters: []
-    logs:
-     receivers: []
-     processors: []
-     exporters: []
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug]
   #telemetry:
   #  logs:
   #    level: debug
