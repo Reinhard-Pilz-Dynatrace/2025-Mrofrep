@@ -25,12 +25,12 @@ Scroll down to the section called `processors`. Make the necessary changes under
   <h4> Add additional rules </h4>
 
   ```yaml
-        - include: ^shop\.(.*)$$
-          match_type: regexp
-          action: update
-          new_name: ${GITHUB_USER}.otel.shop.$${1}
+      - include: ^shop\.(.*)$$
+        match_type: regexp
+        action: update
+        new_name: ${GITHUB_USER}.otel.shop.$${1}
   ```
-
+  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
 <br/>
@@ -41,12 +41,12 @@ Scroll down to the section called `processors`. Make the necessary changes under
   <h4> Modify existing rule </h4>
 
   ```yaml
-        - include: ^(.*)$$
-          match_type: regexp
-          action: update
-          new_name: ${GITHUB_USER}.otel.$${1}
+      - include: ^(.*)$$
+        match_type: regexp
+        action: update
+        new_name: ${GITHUB_USER}.otel.$${1}
   ```
-
+  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
 ### 📌 Task 2 Manipulate filters
@@ -61,14 +61,14 @@ Choose either:
   Modify `metric_names` to exclude all JVM metrics under `filter` 
 
   ```yaml
-    filter:
-      metrics:
-        exclude:
-          match_type: regexp
-          metric_names:
-            - .*\.jvm.*
+  filter:
+    metrics:
+      exclude:
+        match_type: regexp
+        metric_names:
+          - .*\.jvm.*
   ```
-
+  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
 <br/>
@@ -79,12 +79,13 @@ Choose either:
   In the service pipelines, under processes, remove `filter`
 
   ```yaml
-      metrics:
-        receivers: [otlp]
-        processors: [batch, metricstransform]
-        exporters: [debug, otlphttp]
+    metrics:
+      receivers: [otlp]
+      processors: [batch, metricstransform]
+      exporters: [debug, otlphttp]
   ```
 
+  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
 #### Rebuild the containers
