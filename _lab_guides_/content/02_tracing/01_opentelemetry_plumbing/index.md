@@ -58,7 +58,7 @@ Before we can make use of the endpoint, we must define our "ingest pipeline". Th
 
 OpenTelemetry offers various ways to define that pipeline. For our workshop we have chosen to use Environment Variables - just to keep things simple.
 
-Open up the file `order-backend/Dockerfile`. On lines `23-30` you can see this all in action. 
+Open up the file `order-backend/Dockerfile`. You can see this all in action with the following environment properties. 
 
 ```properties
 ENV OTEL_JAVA_GLOBAL_AUTOCONFIGURE_ENABLED=true
@@ -84,20 +84,21 @@ private static final Tracer tracer = openTelemetry.getTracer("manual-instrumenta
 ### 📌 Your Task: Explore the distributed traces enriched by OpenTelemetry
 
 1. Open up `order-backend/Dockerfile`
-2. Remove the comment (`#`) from lines `23-30`. Keep line `31` as it is.
+2. Remove the comment (`#`) from lines `27-35`. (***shortcut:*** CTRL+/ for windows, CMD+/ for mac)
 3. Restart the Demo application (`docker compose up -d --build`)
 4. Familiarize yourself with the code in the file `common/src/main/java/com/dtcookie/util/Otel.java`.
 5. Explore the improvements regarding visibility within the collected traces for `/place-order`
-   1. Go to Services
-   2. Click on `order-api`
-   3. Inspect a more recent `/place-order` trace to become available within `Distributed traces`
-   4. Inspect the `Resource Attributes` of one of the additional spans (example `process` span)
-      * Where is the attribute `dt.entity.host` is coming from?
-      * Where is the attribute `service.name` coming from?
+    - Go to Services
+    - Click on `order-api`
+    - Inspect a more recent `/place-order` trace to become available within `Distributed traces`
+    - Inspect the `Resource Attributes` of one of the additional spans (example `process` span)
+
+#### Questions
+
+<details><summary>💡 Where is the attribute <mark>dt.entity.host</mark> is coming from?</summary>"semantic attributes" defined in Otel.java (i.e. dt_metadata*)</details>
+
+<details><summary>💡 Where is the attribute <mark>service.name</mark> coming from?</summary>The <mark>serviceName</mark> attributes defined in Otel.java</details>
 
 ### ✅ Verify Results
 
 You have completed this exercise once you can visualize in Dynatrace that the credit card validation is getting picked up by the Order Backend.
-
-### 💡 Questions
-* Why wasn't it necessary to add the `Authorization` Header when configuring the OpenTelemetry Exporter via Environment Variables in our case?
