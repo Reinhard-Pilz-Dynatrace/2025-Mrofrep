@@ -28,6 +28,8 @@ In here you need to define two secrets:
 <br>
 <br>
 
+> 📝 **Note**: Currently, Dynatrace API calls are only accessible via *.<mark>***live***</mark>.dynatrace.com. To simplify this hands on, we programed our lab to be able to accept other formats for `DT_ENVIRONMENT_URL` and translate them to the necessary format. Outside of this lab, take note that only *.<mark>***live***</mark>.dynatrace.com will work.
+
 <center>
 <img src="../../../assets/images/01_setup_04_code_spaces_secrets.gif" alt="Create API Token" style="width:500px; display: block; align: center" />
 </center>
