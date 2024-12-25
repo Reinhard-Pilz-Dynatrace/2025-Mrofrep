@@ -114,7 +114,7 @@ public static void deductFromLocation(StorageLocation location, String productNa
         span.setAttribute("product.name", productName);
         span.setAttribute("location.name", location.getName());
         span.setAttribute("quantity", quantity);
-        location.deduct(productName, CREDIT_CARD_LISTEN_PORT);
+        location.deduct(productName, quantity);
       } finally {
         span.end();
       }
