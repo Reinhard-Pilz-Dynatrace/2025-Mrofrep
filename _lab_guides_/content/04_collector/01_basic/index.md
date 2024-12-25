@@ -56,8 +56,8 @@ order-api/Dockerfile
 ```
 
 1. edit the dockerfile
-1. uncomment line 35 to enable the collector endpoint
-1. comment line 39 and 42 to disable the Dynatrace URL endpoint
+1. uncomment line `33` to enable the collector endpoint
+1. comment line `45` and `46` to disable the Dynatrace URL endpoint
 
 #### order-backend service
 
@@ -68,8 +68,8 @@ order-backend/Dockerfile
 ```
 
 1. edit the dockerfile
-1. uncomment line 26 to enable the collector endpoint
-1. comment line 34, 35, 39, 41 to disable the Dynatrace URL endpoint
+1. uncomment line `45` to enable the collector endpoint
+1. comment line `34`, `35`, `41`, `42` to disable the Dynatrace URL endpoint
 
 #### Rebuild the containers
 
@@ -87,18 +87,13 @@ docker compose up -d --build
 
 ### ✅ Verify results
 
-- Launch the `Distributed trace` app to validate if you are still receving traces with the latest timestamps
-- Launch a `Notebook` or `Dashboard` app, use the `Metric explorer` to search for the `shop` metrics
-- What do you notice about the metrics? ***Hint:*** look at the metric names...
-
-### 💡 Troubleshooting tips
-
-Check log output of the OpenTelemetry collector container
+#### Validating using the docker logs of the OpenTelemetry collector
 ```bash
-docker logs opentelemetry-collector
+docker logs opentelemetry-collector -f
 ```
+You will notice a stream of data, esp. items like `trace`, `metrics`
 
-Filtering logs for a specific string, example validating which exporters are activate
+Filter the output for a specific string, example validating which exporters are activate
 ```bash
 docker logs opentelemetry-collector 2>&1 | grep -i exporter
 ```
@@ -107,4 +102,16 @@ Expected output
 ```bash
 2024-12-20T12:30:34.590Z        info    builders/builders.go:26 Development component. May change in the future.        {"kind": "exporter", "data_type": "metrics", "name": "debug"}
 2024-12-20T12:30:34.591Z        info    builders/builders.go:26 Development component. May change in the future.        {"kind": "exporter", "data_type": "traces", "name": "debug"}
+```
+
+#### Validating in Dynatrace
+- Launch the `Distributed trace` app to validate if you are still receving traces with the latest timestamps
+- Launch a `Notebook` or `Dashboard` app, use the `Metric explorer` to search for the `jvm` metrics
+- What do you notice about the metrics? ***Hint:*** look at the metric names...
+
+### 💡 Troubleshooting tips
+
+Check log output of the OpenTelemetry collector container for any errors or items not starting etc.
+```bash
+docker logs opentelemetry-collector
 ```
