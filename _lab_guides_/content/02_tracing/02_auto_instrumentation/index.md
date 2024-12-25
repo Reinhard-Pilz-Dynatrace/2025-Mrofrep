@@ -34,7 +34,7 @@ In this exercise you'll add OpenTelemetry's auto-instrumentation for Java in ord
 
 ### 📌 Your Tasks
 
-In `order-backend/Dockerfile` navigate to line `54`. It tells Docker which process should keep the container alive.
+In `order-backend/Dockerfile` navigate to line `63`. It tells Docker which process should keep the container alive.
 
 `ENTRYPOINT ["java", "-jar", "order-backend.jar"]`
 
