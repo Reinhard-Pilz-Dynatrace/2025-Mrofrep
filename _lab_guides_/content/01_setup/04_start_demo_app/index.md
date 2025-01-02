@@ -1,4 +1,4 @@
-## 📌 How to start/stop the Demo Application
+## How to start/stop the Demo Application
 
 Executing
 ```
