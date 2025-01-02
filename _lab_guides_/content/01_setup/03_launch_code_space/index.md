@@ -1,4 +1,4 @@
-## 📌 Launch Codespaces
+## Launch Codespaces
 
 - In your GitHub Repo click on the green `Code` button
 - Select the `Codespaces` tab
