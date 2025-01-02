@@ -26,7 +26,7 @@ try (Scope scope = span.makeCurrent()) {
 ```
 </details>
 
----
+<br/>
 
 <details>
   <summary><strong>Recording events</strong></summary>
@@ -52,7 +52,7 @@ try (Scope scope = span.makeCurrent()) {
 ```
 </details>
 
----
+<br/>
 
 <details>
   <summary><strong>Recording failures</strong></summary>
@@ -73,6 +73,7 @@ try {
 }
 ```
 </details>
+<br/>
 
 ### 📌 Your Tasks
 
@@ -122,6 +123,8 @@ public static void deductFromLocation(StorageLocation location, String productNa
 ```
 
 </details>
+
+<br/>
 
 ### ✅ Verify results
 
