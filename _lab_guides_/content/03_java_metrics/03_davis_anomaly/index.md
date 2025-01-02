@@ -23,6 +23,7 @@ timeseries avg(shop.database.connections.active), filter:{matchesValue(entityAtt
 | Analyzers | `Static threshold anomaly detection`  |
 | Threshold | `40` |
 | Alert condition | `Alert if metric is above` | 
+
 6. Lastly, expand the `Create an event template` category and set the `Event name` to `High Active Database Connections`.
 7. Finish creating the anomaly detector by selecting `Create`.
 
@@ -54,5 +55,3 @@ timeseries avg(shop.database.connections.active), filter:{matchesValue(entityAtt
   <summary>Final Results:</summary>
 ![Tile 1](../../../assets/images/03-03-02-complete.png)
 </details>
-
----
