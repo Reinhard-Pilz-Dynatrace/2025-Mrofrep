@@ -19,23 +19,27 @@ For the metrics pipeline enable the pre-configured processors `metricstransform`
 
   <h4> For the traces pipeline </h4>
 
-  ```yaml
-      traces:
-        receivers: [otlp]
-        processors: [batch]
-        exporters: [debug, otlphttp]
-  ```
+```yaml
+    traces:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlphttp]
+```
 
   <h4> For the metrics pipeline </h4>
 
-  ```yaml
-      metrics:
-        receivers: [otlp]
-        processors: [batch, metricstransform, filter]
-        exporters: [debug, otlphttp]
-  ```
+```yaml
+    metrics:
+      receivers: [otlp]
+      processors: [batch, metricstransform, filter]
+      exporters: [debug, otlphttp]
+```
+
+> **NOTE**: Be careful of spaces and tabs in a yaml file. If in doubt, check the original file in the github repo and copy the spacing from the original file.
 
 </details>
+
+<br/>
 
 ### 📌 Task 2: Configure exporters
 
