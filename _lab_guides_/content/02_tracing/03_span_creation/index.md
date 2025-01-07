@@ -37,7 +37,7 @@ try (Scope scope = span.makeCurrent()) {
   > 📝 **Note:** It is usually not necessary to create a Tracer every time you want to create a Span. In our demo app the BackendServer creates a reusable `tracer` right in the beginning - on line `41`.
 </details>
 
----
+<br/>
 
 <details>
   <summary><strong>Set Span Context</strong></summary>
@@ -95,7 +95,7 @@ try (Scope scope = outGoing.makeCurrent()) {
 
 </details>
 
----
+<br/>
 
 <details>
   <summary><strong>Setting Span Kind</strong></summary>
@@ -118,9 +118,11 @@ try (Scope scope = outGoing.makeCurrent()) {
   ```
 </details>
 
+<br/>
+
 ### 📌 Your First Task
 
-In `order-backend/src/main/java/com/dtcooki/shop/backend/BackendServer.java`:
+In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
 1. On line `96` begins method `handleCreditcards`. We have seen in our previous tasks, that Dynatrace receives correct signals at this point.
 2. On line `127` begins method `handleInventory`. The nature of this method is **very** similar to `handleCreditCards` - it receives a HTTP request.
     * Compare both methods regarding the OpenTelemetry SDK calls
@@ -167,6 +169,7 @@ In `order-backend/src/main/java/com/dtcooki/shop/backend/BackendServer.java`:
 	}
   ```
 </details>
+<br/>
 
 ### ✅ Verify results
 
@@ -176,7 +179,7 @@ The HTTP GET Request `/check-inventory` should now extend into the Order Backend
 
 ### 📌 Your Second Task
 
-In `order-backend/src/main/java/com/dtcooki/shop/backend/BackendServer.java`:
+In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
 1. On line `161` begins method `checkStorageLocations`. In here the Storage Locations are getting checked whether the requested quantity of a specific product is available. It eventually calls the method `deductFromLocation`, which can be found at line `177`.
 2. Create an additional Span whenever `deductFromLocation` is getting invoked. You can use `checkStorageLocations` in order to figure out what additional code is necessary.   
 3. Restart the demo application to verify any changes:
@@ -195,6 +198,7 @@ public static void deductFromLocation(StorageLocation location, String productNa
 }
 ```
 </details>
+<br/>
 
 ### ✅ Verify results
 
