@@ -1,4 +1,4 @@
-## 📌 Configure Credentials
+## Configure Credentials
 
 You will be launching the demo app using GitHub Code Spaces.
 Before we are able to do that, we need to configure two secrets in your GitHub account. They will let the app know where to report monitoring data to and how to authenticate.
@@ -28,7 +28,7 @@ In here you need to define two secrets:
 <br>
 <br>
 
-> 📝 **Note**: Currently, Dynatrace API calls are only accessible via *.<mark>***live***</mark>.dynatrace.com. To simplify this hands on, we programed our lab to be able to accept other formats for `DT_ENVIRONMENT_URL` and translate them to the necessary format. Outside of this lab, take note that only *.<mark>***live***</mark>.dynatrace.com will work.
+> 📝 **Note**: Currently, Dynatrace API calls are only accessible via *.<mark>***live***</mark>.dynatrace.com domain. To simplify this hands on, we programed our lab to be able to accept other formats for `DT_ENVIRONMENT_URL` and translate them to the necessary format. Outside of this lab, please do ***NOT*** use https://xyz.apps.dynatrace.com, take note that only *.<mark>***live***</mark>.dynatrace.com domain will work.
 
 <center>
 <img src="../../../assets/images/01_setup_04_code_spaces_secrets.gif" alt="Create API Token" style="width:500px; display: block; align: center" />
