@@ -2,6 +2,8 @@
 
 ### Introduction
 
+You do not need to complete this section before attempting the next section as these 2 are mutually exclusive. If you are stuck here, you can attempt the next section and revisit this one anytime.
+
 The "Processing Backend" is getting called via HTTP GET Request from your Backend Server - just not in a way that Auto Instrumentation is able to recognize that.
 
 ### 📌 Your Task: Make outgoing HTTP Requests visible
@@ -12,7 +14,7 @@ Find a method named `notifyProcessingBackend`. The usage `GETRequest` clearly hi
 
 * Enrich that method with a custom OpenTelemetry Span
 * Make sure you're using the correct Span Kind
-* Don't forget to add semantic attributes. `http.request.method` and `http.request.method` will be sufficient for Dynatrace.
+* Don't forget to add semantic attributes. `HTTP_METHOD` and `HTTP_URL` will be sufficient for Dynatrace.
 * Handle exceptions properly in case the outgoing call fails
 * Ensure that the Trace Context is getting propagated. You may want to take another look into the lab guide for `Span Creation` for an example.
 
@@ -27,6 +29,10 @@ public static void notifyProcessingBackend(Product product) throws Exception {
 }
 ```
 </details>
+
+> NOTE: to be updated after dry run.
+
+<br/>
 
 ### ✅ Verify results
 
