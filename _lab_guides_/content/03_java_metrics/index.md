@@ -5,4 +5,4 @@ This section covers how to create and populate measurements via OpenTelemetry fo
 What you will learn
 - How to create and populate custom metrics using OpenTelemetry
 - How to visualize these metrics in Dynatrace
-- (Removal pending) How to alert on these metrics
+- How to alert on these metrics

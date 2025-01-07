@@ -38,16 +38,17 @@ timeseries avg(shop.database.connections.active), filter:{matchesValue(entityAtt
 ![Open With](../../../assets/images/03-03-02-open_with.png)
 
 3. In the `Open with` window, select `Dashboards`.
-4. Under the `Select destination` window, select your dashboard `OTel HOT - Perform 2025`, then `Confirm`.
+4. Under the `Select destination` window, select your dashboard `Shop Application Overview`, then `Confirm`.
 5. At this point, you should be back in your dashboard with the new tile edit window in the right pane. Back out of the Davis AI menu by clicking on the left arrow.
 
 ![Davis Menu](../../../assets/images/03-03-02-davis_menu.png)
 
 6. Set the name of the tile to `Active Database Connections`.
-7. Navigate to the `Visual` tab, and expand the `Davis AI analysis chart` category.
-8. Set the `Visible sections` to `Chart`.
-9. Close out of the edit window of the tile.
-10. Move the tile to the right of `Order Backend Request Failures` by click/holding the six dots above the `Active Database Connections` tile.
+7. Click on `Run` to run the query.
+8. Navigate to the `Visual` tab, and expand the `Davis AI analysis chart` category.
+9. Set the `Visible sections` to `Chart`.
+10. Close out of the edit window of the tile.
+11. Move the tile to the right of `Order Backend Request Failures` by click/holding the six dots above the `Active Database Connections` tile.
 
 ![Move Tile](../../../assets/images/03-03-02-move.png)
 

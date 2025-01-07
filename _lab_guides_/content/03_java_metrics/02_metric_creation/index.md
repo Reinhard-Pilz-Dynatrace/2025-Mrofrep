@@ -13,7 +13,7 @@ References: Dynatrace documentation
 
 **Your Task:** Create an additional LongCounter to track attempted purchases
 
-In the file `src/main/shop/FrontendServer.java`, create a new LongCounter object called `attemptedPurchasesCounter` near line 43. The object should have the following properties:
+In the file `order-api/src/main/java/com/dtcookie/shop/frontend/FrontendServer.java`, create a new LongCounter object called `attemptedPurchasesCounter` near line 43. The object should have the following properties:
 - name:`shop.purchases.attempted`
 - description:`Attempted number of purchases`
 
@@ -32,7 +32,7 @@ private static final LongCounter attemptedPurchasesCounter = meter.counterBuilde
 
 **Your Task:** Create a function that will pass a measurement to your instrument 
 
-In the file `src/main/shop/FrontendServer.java`, create a new function called `reportAttemptedPurchases` after the existing functions. The function should take `product` as a parameter and increment the `instrument` tracking attemptedPurchases by 1.
+In the file `order-api/src/main/java/com/dtcookie/shop/frontend/FrontendServer.java`, create a new function called `reportAttemptedPurchases` after the existing functions. The function should take `product` as a parameter and increment the `instrument` tracking attemptedPurchases by 1.
 
 Hint: This will be similar to the `reportPurchases` function near line 135. 
 
