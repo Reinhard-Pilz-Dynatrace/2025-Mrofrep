@@ -21,6 +21,8 @@ In this exercise you'll add OpenTelemetry's auto-instrumentation for Java in ord
 
 </details>
 
+<br/>
+
 <details>
   <summary><strong>Auto-instrumentation for Java</strong></summary>
 
@@ -31,6 +33,8 @@ In this exercise you'll add OpenTelemetry's auto-instrumentation for Java in ord
 
   The effect will be that a long list of [supported libraries](https://github.com/open-telemetry/opentelemetry-java-instrumentation/blob/main/docs/supported-libraries.md#libraries--frameworks) will automatically get enriched with the capability to report traces and spans via OpenTelemetry.  
 </details>
+
+<br/>
 
 ### 📌 Your Tasks
 
@@ -59,4 +63,4 @@ Verify new visibility within the traces:
 
 ### 💡 Questions
 * Which of these spans got introduced by auto-instrumentation?
-* Take a detailed look at method `process` at line `70` in `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer`. On line `76` it is scheduling the invocation of `postprocess` to be executed by a Thread Pool. What could have been the reason for `postprocess` no reporting any spans until we've enabled Auto Instrumentation?
+* Take a detailed look at method `process` at line `70` in `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer`. On line `76` it is scheduling the invocation of `postprocess` to be executed by a Thread Pool. What could have been the reason for `postprocess` not reporting any spans until we've enabled Auto Instrumentation?
