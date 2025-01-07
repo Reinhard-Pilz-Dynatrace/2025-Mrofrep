@@ -46,6 +46,8 @@ for (String name : new String[] { "dt_metadata_e617c525669e072eebe3d0f08212e8f2.
   > 📝 **Note**: `dt_metadata_e617c525669e072eebe3d0f08212e8f2.json` is a file that contains a path under which OneAgent writes topology-specific dimensions related to the process reading it. This means we can provide Dynatrace with OneAgent supplied information about the Process that our Resource is running on. More on this in the [online documentation](https://www.dynatrace.com/support/help/shortlink/enrich-metrics#oneagent-file-open-interface).
 </details>
 
+<br/>
+
 <details>
 <summary><strong>Set up Trace export</strong></summary>
 
@@ -81,10 +83,12 @@ private static final Tracer tracer = openTelemetry.getTracer("manual-instrumenta
 
 </details>
 
+<br/>
+
 ### 📌 Your Task: Explore the distributed traces enriched by OpenTelemetry
 
 1. Open up `order-backend/Dockerfile`
-2. Remove the comment (`#`) from lines `27-35`. (***shortcut:*** CTRL+/ for windows, CMD+/ for mac)
+2. Remove the comment (`#`) from lines `27-35`. (***shortcut:*** highlight lines 27-35 and use the keyboard CTRL+/ for windows, CMD+/ for mac)
 3. Restart the Demo application (`docker compose up -d --build`)
 4. Familiarize yourself with the code in the file `common/src/main/java/com/dtcookie/util/Otel.java`.
 5. Explore the improvements regarding visibility within the collected traces for `/place-order`
@@ -94,9 +98,6 @@ private static final Tracer tracer = openTelemetry.getTracer("manual-instrumenta
     - Inspect the `Resource Attributes` of one of the additional spans (example `process` span)
 
 #### Questions
-
-<details><summary>💡 Where is the attribute <mark>dt.entity.host</mark> is coming from?</summary>"semantic attributes" defined in Otel.java (i.e. dt_metadata*)</details>
-
 <details><summary>💡 Where is the attribute <mark>service.name</mark> coming from?</summary>The <mark>serviceName</mark> attributes defined in Otel.java</details>
 
 ### ✅ Verify Results
