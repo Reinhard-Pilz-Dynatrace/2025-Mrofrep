@@ -1,5 +1,5 @@
 {
-    "version": 15,
+    "version": 16,
     "variables": [],
     "tiles": {
         "0": {
@@ -15,7 +15,7 @@
         "9": {
             "type": "data",
             "title": "",
-            "query": "timeseries purchases=sum(shop.purchases.confirmed), by:{user}\n| fields Total = arraySum(purchases)",
+            "query": "timeseries purchases=sum(shop.purchases.confirmed)\n| fields Total = arraySum(purchases)",
             "davis": {
                 "enabled": false,
                 "davisVisualization": {
@@ -42,9 +42,15 @@
                         "scale": "absolute",
                         "groupMode": "stacked",
                         "colorPaletteMode": "multi-color",
-                        "categoryAxisLabel": "user",
-                        "valueAxisLabel": "interval",
-                        "tooltipVariant": "single"
+                        "categoryAxisLabel": "Total",
+                        "valueAxisLabel": "Total",
+                        "tooltipVariant": "single",
+                        "categoryAxis": [
+                            "Total"
+                        ],
+                        "valueAxis": [
+                            "Total"
+                        ]
                     },
                     "colorPalette": "categorical",
                     "valueRepresentation": "absolute",
@@ -200,9 +206,15 @@
                         "scale": "absolute",
                         "groupMode": "stacked",
                         "colorPaletteMode": "multi-color",
-                        "categoryAxisLabel": "dt.entity.service",
+                        "categoryAxisLabel": "interval",
                         "valueAxisLabel": "interval",
-                        "tooltipVariant": "single"
+                        "tooltipVariant": "single",
+                        "categoryAxis": [
+                            "interval"
+                        ],
+                        "valueAxis": [
+                            "interval"
+                        ]
                     },
                     "colorPalette": "categorical",
                     "valueRepresentation": "absolute",
@@ -221,9 +233,11 @@
                         "hidden": true
                     },
                     "leftYAxisSettings": {
-                        "isLabelVisible": false
+                        "isLabelVisible": false,
+                        "label": "Service request response time"
                     },
-                    "xAxisIsLabelVisible": false
+                    "xAxisIsLabelVisible": false,
+                    "xAxisLabel": "timeframe"
                 },
                 "singleValue": {
                     "showLabel": true,
@@ -247,7 +261,15 @@
                     "monospacedFontEnabled": false,
                     "monospacedFontColumns": [],
                     "columnWidths": {},
-                    "columnTypeOverrides": []
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "avg(dt.service.request.response_time)"
+                            ],
+                            "value": "sparkline",
+                            "id": 1736273323444
+                        }
+                    ]
                 },
                 "honeycomb": {
                     "shape": "hexagon",
@@ -344,11 +366,14 @@
                     "hiddenLegendFields": [],
                     "legend": {
                         "hidden": true
-                    }
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {}
                 },
                 "singleValue": {
                     "showLabel": true,
-                    "label": "",
+                    "label": "user",
                     "prefixIcon": "",
                     "recordField": "user",
                     "autoscale": true,
@@ -368,7 +393,15 @@
                     "monospacedFontEnabled": false,
                     "monospacedFontColumns": [],
                     "columnWidths": {},
-                    "columnTypeOverrides": []
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "purchases"
+                            ],
+                            "value": "sparkline",
+                            "id": 1736273306774
+                        }
+                    ]
                 },
                 "honeycomb": {
                     "shape": "hexagon",
@@ -422,7 +455,7 @@
         "15": {
             "type": "data",
             "title": "",
-            "query": "timeseries {revenue=sum(shop.revenue.actual), purchases=sum(shop.purchases.confirmed)}, by:{user}\n| fields Average=arraySum(revenue)/arraySum(purchases)",
+            "query": "timeseries {revenue=sum(shop.revenue.actual), purchases=sum(shop.purchases.confirmed)}\n| fields Average=arraySum(revenue)/arraySum(purchases)",
             "davis": {
                 "enabled": false,
                 "davisVisualization": {
@@ -449,9 +482,15 @@
                         "scale": "absolute",
                         "groupMode": "stacked",
                         "colorPaletteMode": "multi-color",
-                        "categoryAxisLabel": "user",
-                        "valueAxisLabel": "avgpurchase",
-                        "tooltipVariant": "single"
+                        "categoryAxisLabel": "Average",
+                        "valueAxisLabel": "Average",
+                        "tooltipVariant": "single",
+                        "categoryAxis": [
+                            "Average"
+                        ],
+                        "valueAxis": [
+                            "Average"
+                        ]
                     },
                     "colorPalette": "categorical",
                     "valueRepresentation": "absolute",
@@ -525,7 +564,7 @@
         "16": {
             "type": "data",
             "title": "",
-            "query": "timeseries {expected=sum(shop.revenue.expected), actual=sum(shop.revenue.actual)}, by:{user}\n| fieldsAdd Lost=arraySum(expected)-arraySum(actual)",
+            "query": "timeseries {expected=sum(shop.revenue.expected), actual=sum(shop.revenue.actual)}\n| fieldsAdd Lost=arraySum(expected)-arraySum(actual)",
             "davis": {
                 "enabled": false,
                 "davisVisualization": {
@@ -586,11 +625,12 @@
                         "scale": "absolute",
                         "groupMode": "stacked",
                         "colorPaletteMode": "multi-color",
-                        "categoryAxisLabel": "user",
+                        "categoryAxisLabel": "interval,Lost",
                         "valueAxisLabel": "Lost",
                         "tooltipVariant": "single",
                         "categoryAxis": [
-                            "user"
+                            "interval",
+                            "Lost"
                         ],
                         "valueAxis": [
                             "Lost"
@@ -605,15 +645,18 @@
                         "leftAxisValues": [
                             "expected",
                             "actual"
-                        ],
-                        "leftAxisDimensions": [
-                            "Lost"
                         ]
                     },
                     "bandChartSettings": {
                         "lower": "expected",
                         "upper": "actual",
                         "time": "timeframe"
+                    },
+                    "xAxisLabel": "timeframe",
+                    "xAxisIsLabelVisible": false,
+                    "leftYAxisSettings": {
+                        "isLabelVisible": true,
+                        "label": "shop.revenue.expected"
                     }
                 },
                 "singleValue": {
@@ -644,7 +687,16 @@
                     "monospacedFontEnabled": false,
                     "monospacedFontColumns": [],
                     "columnWidths": {},
-                    "columnTypeOverrides": []
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "expected",
+                                "actual"
+                            ],
+                            "value": "sparkline",
+                            "id": 1736274293690
+                        }
+                    ]
                 },
                 "honeycomb": {
                     "shape": "hexagon",
@@ -652,12 +704,8 @@
                         "hidden": false,
                         "position": "auto"
                     },
-                    "displayedFields": [
-                        "user"
-                    ],
-                    "dataMappings": {
-                        "value": "interval"
-                    },
+                    "displayedFields": [],
+                    "dataMappings": {},
                     "truncationMode": "middle",
                     "colorMode": "color-palette",
                     "colorPalette": "blue"
@@ -758,9 +806,15 @@
                         "scale": "absolute",
                         "groupMode": "stacked",
                         "colorPaletteMode": "multi-color",
-                        "categoryAxisLabel": "dt.entity.service",
+                        "categoryAxisLabel": "interval",
                         "valueAxisLabel": "interval",
-                        "tooltipVariant": "single"
+                        "tooltipVariant": "single",
+                        "categoryAxis": [
+                            "interval"
+                        ],
+                        "valueAxis": [
+                            "interval"
+                        ]
                     },
                     "colorPalette": "categorical",
                     "valueRepresentation": "absolute",
@@ -779,7 +833,8 @@
                         "hidden": true
                     },
                     "leftYAxisSettings": {
-                        "isLabelVisible": false
+                        "isLabelVisible": false,
+                        "label": "Service request count"
                     },
                     "xAxisIsLabelVisible": false,
                     "seriesOverrides": [
@@ -793,7 +848,8 @@
                                 }
                             }
                         }
-                    ]
+                    ],
+                    "xAxisLabel": "timeframe"
                 },
                 "singleValue": {
                     "showLabel": true,
@@ -817,7 +873,15 @@
                     "monospacedFontEnabled": false,
                     "monospacedFontColumns": [],
                     "columnWidths": {},
-                    "columnTypeOverrides": []
+                    "columnTypeOverrides": [
+                        {
+                            "fields": [
+                                "sum(dt.service.request.count)"
+                            ],
+                            "value": "sparkline",
+                            "id": 1736273324264
+                        }
+                    ]
                 },
                 "honeycomb": {
                     "shape": "hexagon",
@@ -863,7 +927,7 @@
             "title": "",
             "query": "",
             "queryConfig": {
-                "version": "11.4.0",
+                "version": "11.6.2",
                 "subQueries": [
                     {
                         "id": "A",
@@ -1123,5 +1187,6 @@
             "h": 6
         }
     },
-    "importedWithCode": false
+    "importedWithCode": false,
+    "settings": {}
 }

@@ -7,7 +7,7 @@ In this section, we will enhance the existing OpenTelemetry metric definitions b
 
 **Your Task:** Enhance the existing metrics by adding an additional attribute
 
-In the file `src/main/shop/FrontendServer.java`, the functions `reportPurchases` and `reportExpectedRevenue` have been updated to include an attribute with the key `user` and the value `System.getenv("GITHUB_USER")`, allowing metrics to be tied to individual attendee instances. Please update the `reportActualRevenue` function to include the same attribute.
+In the file `order-api/src/main/java/com/dtcookie/shop/frontend/FrontendServer.java`, the functions `reportPurchases` and `reportExpectedRevenue` have been updated to include an attribute with the key `user` and the value `System.getenv("GITHUB_USER")`, allowing metrics to be tied to individual attendee instances. Please update the `reportActualRevenue` function to include the same attribute.
 
 <details>
   <summary>Solution: Expand to copy and paste the code</summary>
@@ -60,9 +60,10 @@ Then upload the dashboard to your tenant - navigate to `Apps`, open the `Dashboa
 7. Under the `Reduce to single value` dropdown, select `Sum`. 
 8. Click on `Run` again.
 9. Navigate to the `Visual` tab, and select `Single value` for visualization.
-10. Expand the `Single value` configuration category:
-	* Edit `Label` to `Total Revenue`
-11. Disable the `Trend` and `Sparkline` by toggling the slider.
+10. Expand the `Data mapping` configuration category:
+  * Set `Single value` to `sum(shop.revenue.actual)`
+11. Expand the `Single value` configuration category:
+	* Set `Label` to `Total Revenue`
 12. Close out of the edit window of the tile.
 
 <details>
