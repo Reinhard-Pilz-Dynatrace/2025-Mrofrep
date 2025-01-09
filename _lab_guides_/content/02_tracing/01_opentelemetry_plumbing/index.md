@@ -93,7 +93,7 @@ private static final Tracer tracer = openTelemetry.getTracer("manual-instrumenta
 4. Familiarize yourself with the code in the file `common/src/main/java/com/dtcookie/util/Otel.java`.
 5. Explore the improvements regarding visibility within the collected traces for `/place-order`
     - Go to Services
-    - Click on `order-api`
+    - Click on `order-api-[github-user-name]`
     - Inspect a more recent `/place-order` trace to become available within `Distributed traces`
     - Inspect the `Resource Attributes` of one of the additional spans (example `process` span)
 

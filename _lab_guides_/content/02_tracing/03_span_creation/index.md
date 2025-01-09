@@ -123,8 +123,8 @@ try (Scope scope = outGoing.makeCurrent()) {
 ### 📌 Your First Task
 
 In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
-1. On line `96` begins method `handleCreditcards`. We have seen in our previous tasks, that Dynatrace receives correct signals at this point.
-2. On line `127` begins method `handleInventory`. The nature of this method is **very** similar to `handleCreditCards` - it receives a HTTP request.
+1. Search for the method `handleCreditcards`. We have seen in our previous tasks, that Dynatrace receives correct signals at this point.
+2. Search for the method `handleInventory`. The nature of this method is **very** similar to `handleCreditCards` - it receives a HTTP request.
     * Compare both methods regarding the OpenTelemetry SDK calls
     * Method `handleInventory` does not yet handle `Context Propagation` correctly
     * Use `handleCreditCards` as a template to fix `handleInventory`    
@@ -134,21 +134,20 @@ In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
   <summary>Show solution</summary>
 
   ```java
-	public static String handleInventory(HttpExchange exchange) throws Exception {
-		String url = exchange.getRequestURI().toString();
-		String productName = url.substring(url.lastIndexOf("/"));		
+	public static String handleInventory(HttpServletRequest request) throws Exception {
+		String url = request.getRequestURI();
+		String productName = url.substring(url.lastIndexOf("/"));
 		int quantity = 1;
 
 		Context ctx = openTelemetry.getPropagators().getTextMapPropagator().extract(Context.current(), request, getter);
 
 		try (Scope ignored = ctx.makeCurrent()) {
-			Span serverSpan = tracer.spanBuilder(exchange.getRequestURI().toString()).setSpanKind(SpanKind.SERVER).startSpan();
+			Span serverSpan = tracer.spanBuilder(request.getRequestURI()).setSpanKind(SpanKind.SERVER).startSpan();
 			try (Scope scope = serverSpan.makeCurrent()) {
-				serverSpan.setAttribute(SemanticAttributes.HTTP_REQUEST_METHOD,
-						exchange.getRequestMethod().toUpperCase());
+				serverSpan.setAttribute(SemanticAttributes.HTTP_REQUEST_METHOD,	request.getMethod().toUpperCase());
 				serverSpan.setAttribute(SemanticAttributes.URL_SCHEME, "http");
-				serverSpan.setAttribute(SemanticAttributes.SERVER_ADDRESS, "localhost:" + INVENTORY_LISTEN_PORT);
-				serverSpan.setAttribute(SemanticAttributes.URL_PATH, exchange.getRequestURI().toString());
+				serverSpan.setAttribute(SemanticAttributes.SERVER_ADDRESS, "order-backend-" + System.getenv("GITHUB_USER") + ":" + Ports.INVENTORY_LISTEN_PORT);
+				serverSpan.setAttribute(SemanticAttributes.URL_PATH, request.getRequestURI());
 				
 				Database.execute("SELECT * FROM products WHERE name = '" + productName + "'");
 
@@ -180,7 +179,7 @@ The HTTP GET Request `/check-inventory` should now extend into the Order Backend
 ### 📌 Your Second Task
 
 In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
-1. On line `161` begins method `checkStorageLocations`. In here the Storage Locations are getting checked whether the requested quantity of a specific product is available. It eventually calls the method `deductFromLocation`, which can be found at line `177`.
+1. Search for the method `checkStorageLocations`. In here the Storage Locations are getting checked whether the requested quantity of a specific product is available. It eventually calls the method `deductFromLocation` which can be found a little farther below. 
 2. Create an additional Span whenever `deductFromLocation` is getting invoked. You can use `checkStorageLocations` in order to figure out what additional code is necessary.   
 3. Restart the demo application to verify any changes:
 

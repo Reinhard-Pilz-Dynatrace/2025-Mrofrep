@@ -103,6 +103,7 @@ public static void checkStorageLocations(String productName, int quantity) {
         }
         if (!deducted) {
             span.addEvent("nothing deducted", io.opentelemetry.api.common.Attributes.builder().put("product.name", productName).build());
+            span.setStatus(StatusCode.ERROR);
         }
     } finally {
         span.end();

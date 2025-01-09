@@ -9,6 +9,6 @@
 </center>
 
 <br>
-GitHub needs about two minutes to provision hour code space.
+GitHub needs about two minutes to provision your code space.
 
 Once you can see the folder structure on the left and a terminal is available, you are ready to move on.
