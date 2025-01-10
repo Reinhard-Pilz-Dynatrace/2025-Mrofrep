@@ -124,7 +124,7 @@ curl http://localhost:8090/quote
 
 > **NOTE**: Do not copy the + character
 
-> If you choose to log the data in the Python code, you will need to write more python code to configure the logging package for "info" logs. The default level is `WARNING`, which means that only events of this severity and higher will be tracked, unless the logging package is configured to do otherwise, reference:[https://docs.python.org/3/howto/logging.html](https://docs.python.org/3/howto/logging.html).
+> If you choose to log the data in the Python code, you will need to write more python code to configure the logging package for "info" logs. The default level is `WARNING`, which means that only events of this severity and higher will be tracked, unless the logging package is configured to do otherwise, reference: [https://docs.python.org/3/howto/logging.html](https://docs.python.org/3/howto/logging.html).
 </details>
 
 <br/>
