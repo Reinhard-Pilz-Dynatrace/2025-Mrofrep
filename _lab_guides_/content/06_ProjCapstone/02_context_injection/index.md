@@ -14,10 +14,9 @@ Find a method named `notifyProcessingBackend`. The usage `GETRequest` clearly hi
 
 * Ensure that the Trace Context is getting propagated.
    - Libraries that represent an exit point from an application, in our case, HTTP clients, should ***inject*** context into outgoing messages
-   - You may want to take another look into the lab guide for `Span Creation` for an example, as well as using this [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/java/api/#contextpropagators)
+   - You may want to take another look into the lab guide for `Span Creation` for an example, as well as using [OpenTelemetry documentation context propagators](https://opentelemetry.io/docs/languages/java/api/#contextpropagators) to understand the concepts with sample code.
 * As `GETRequest` has been designed by the Java coder and not a known Java class/framework, you might need to understand how that class is built before you can figure out how to introduce the necessary code.
 * Some hints to help you out...
-   - Concepts to understand and sample code: 
    - `GETRequest`already has the TextMapSetter defined, and it is on line `38` of <mark>common/src/main/java/com/dtcookie/util/GETRequest.java</mark>
    - You will only need to call the ContextPropagators instance, and inject the current context into the GETRequest carrier, together with the TextMapSetter.
 
