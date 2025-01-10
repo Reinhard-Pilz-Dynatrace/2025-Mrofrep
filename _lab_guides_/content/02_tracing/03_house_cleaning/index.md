@@ -12,8 +12,10 @@ But unless you're in charge of adding the code snippets that are talking to the 
 
 The developer who was in charge of adding OpenTelemetry Spans to the Frontend Server was a bit overzealous. If you take a detailed look at the `/place-order` traces, you'll notice that they contain spans named `persist-purchace-confirmation-#` - in an unnecessarily high amount.
 
-In your Dynatrace Environment navigate to `Settings > Server-side service monitoring`.
+In your Dynatrace Environment navigate to `Settings Classic > Server-side service monitoring`.
 Find a way to exclude all the spans that start with the name `persist-purchace-confirmation-` from getting captured by Dynatrace.
+
+> 💡 **Note:** This feature requires OneAgent Fullstack to be present. It doesn't apply to traces ingested via OTLP.
 
 ### ✅ Verify results
 
