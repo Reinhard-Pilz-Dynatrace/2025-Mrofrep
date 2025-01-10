@@ -24,12 +24,16 @@ def process(n: int) -> int:
 +           logging.getLogger().exception(n)
 ```
 
+> **NOTE**: Do not copy the + character
+
 Or more elegantly,
 ```python
 logging.getLogger().exception("SeedNumber=%s",n)
 ```
 
 </details>
+
+<br/>
 
 #### ✅ Verify Results
 1. Open `Logs` app
@@ -45,6 +49,8 @@ Logs with WARN status are very basic and outputs whatever text that was programm
 <summary>💡 What additional details are included?</summary>
 The exception details are automatically appended to the logs.
 </details>
+
+<br/>
 
 ### Exceptions in spans
 - Besides logging, we can also enhance spans to capture the exceptions.
@@ -70,7 +76,10 @@ def process(n: int) -> int:
 +           span.set_status(Status(StatusCode.ERROR))
 ```
 
+> **NOTE**: Do not copy the + character
 </details>
+
+<br>
 
 #### ✅ Verify Results
 1. Open `Distributed trace` app
@@ -84,6 +93,8 @@ def process(n: int) -> int:
 <p>- OpenTelemetry provides the facilities to allow for either implementation and in fact, you can also implement both as well. However, there is always an element of cost and maintainability.
 <p>- Thus it is prudent to use the right method for the right objectives/purpose.
 </details>
+
+<br/>
 
 ### Logging business data
 - When called, the python microserivce responses with a JSON payload, for example
@@ -111,8 +122,12 @@ curl http://localhost:8090/quote
 	}
 ```
 
-> **NOTE**: If you choose to log the data in the Python code, you will need to write more python code to configure the logging package for "info" logs. The default level is `WARNING`, which means that only events of this severity and higher will be tracked, unless the logging package is configured to do otherwise, reference:[https://docs.python.org/3/howto/logging.html](https://docs.python.org/3/howto/logging.html).
+> **NOTE**: Do not copy the + character
+
+> If you choose to log the data in the Python code, you will need to write more python code to configure the logging package for "info" logs. The default level is `WARNING`, which means that only events of this severity and higher will be tracked, unless the logging package is configured to do otherwise, reference: [https://docs.python.org/3/howto/logging.html](https://docs.python.org/3/howto/logging.html).
 </details>
+
+<br/>
 
 #### ✅ Verify Results
 1. Open `Logs` app
