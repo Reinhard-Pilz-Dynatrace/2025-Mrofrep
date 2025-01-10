@@ -75,9 +75,12 @@ def process(n: int) -> int:
 +           span.record_exception(e)
 +           span.set_status(Status(StatusCode.ERROR))
 ```
+
 > **NOTE**: Do not copy the + character
 </details>
-<br/>
+
+<br>
+
 #### ✅ Verify Results
 1. Open `Distributed trace` app
 1. Switch to `span` view and search for `process` spans
@@ -90,7 +93,9 @@ def process(n: int) -> int:
 <p>- OpenTelemetry provides the facilities to allow for either implementation and in fact, you can also implement both as well. However, there is always an element of cost and maintainability.
 <p>- Thus it is prudent to use the right method for the right objectives/purpose.
 </details>
+
 <br/>
+
 ### Logging business data
 - When called, the python microserivce responses with a JSON payload, for example
 ```bash
@@ -121,7 +126,9 @@ curl http://localhost:8090/quote
 
 > If you choose to log the data in the Python code, you will need to write more python code to configure the logging package for "info" logs. The default level is `WARNING`, which means that only events of this severity and higher will be tracked, unless the logging package is configured to do otherwise, reference:[https://docs.python.org/3/howto/logging.html](https://docs.python.org/3/howto/logging.html).
 </details>
+
 <br/>
+
 #### ✅ Verify Results
 1. Open `Logs` app
 1. Log entries should appear under the `service.name` of `order-backend-*`
