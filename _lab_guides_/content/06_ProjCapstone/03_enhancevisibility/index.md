@@ -50,6 +50,8 @@ Logs with WARN status are very basic and outputs whatever text that was programm
 The exception details are automatically appended to the logs.
 </details>
 
+<br/>
+
 ### Exceptions in spans
 - Besides logging, we can also enhance spans to capture the exceptions.
 - Clearly, an exception is thrown and we want the spans to also reflect those exceptions and mark that specific span as "failed".
