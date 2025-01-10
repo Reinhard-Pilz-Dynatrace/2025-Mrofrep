@@ -175,12 +175,7 @@ public class BackendServer {
 	}
 
 	public static void deductFromLocation(StorageLocation location, String productName, int quantity) {
-		Span span = tracer.spanBuilder("deduct").setSpanKind(SpanKind.INTERNAL).startSpan();
-		try (Scope scope = span.makeCurrent()) {
-		  location.deduct(productName, quantity);
-		} finally {
-		  span.end();
-		}
+		location.deduct(productName, quantity);
 	}
 
 	public static Object postProcess() throws Exception {
