@@ -12,20 +12,22 @@ Open up `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.jav
 
 Find a method named `notifyProcessingBackend`. The usage `GETRequest` clearly hints, that an outgoing HTTP request is happening here
 
-* Ensure that the Trace Context is getting propagated. You may want to take another look into the lab guide for `Span Creation` for an example.
+* Ensure that the Trace Context is getting propagated.
+   - Libraries that represent an exit point from an application, in our case, HTTP clients, should ***inject*** context into outgoing messages
+   - You may want to take another look into the lab guide for `Span Creation` for an example, as well as using this [OpenTelemetry documentation](https://opentelemetry.io/docs/languages/java/api/#contextpropagators)
 * As `GETRequest` has been designed by the Java coder and not a known Java class/framework, you might need to understand how that class is built before you can figure out how to introduce the necessary code.
 * Some hints to help you out...
-   - Concepts to understand and sample code: [Libraries that represent an exit point from an application, in our case, HTTP clients, should ***inject*** context into outgoing messages](https://opentelemetry.io/docs/languages/java/api/#contextpropagators)
+   - Concepts to understand and sample code: 
    - `GETRequest`already has the TextMapSetter defined, and it is on line `38` of <mark>common/src/main/java/com/dtcookie/util/GETRequest.java</mark>
    - You will only need to call the ContextPropagators instance, and inject the current context into the GETRequest carrier, together with the TextMapSetter.
 
 Some things to consider...
 <details>
-	<summary>Would the Java auto instrumentation create additional spans for you in order-backend to indicate that notifyProcessingBackend is making a call to an external service? If no, why?</summary>
+	<summary> 💡 Would the Java auto instrumentation create additional spans for you in order-backend to indicate that notifyProcessingBackend is making a call to an external service? If no, why?</summary>
 The Java auto instrumentation will not create additional spans as notifyProcessingBackend method/function call is not from any of the known auto instrumentation frameworks. 
 </details>
 <details>
-	<summary>Following the above consideration, would there be a need to create a custom OpenTelemetry Span? Why?</summary>
+	<summary> 💡 Following the above consideration, would there be a need to create a custom OpenTelemetry Span? Why?</summary>
 Technicall, if you are just concern in connecting the services together, there is no need to create a custom span. However, in terms of having clear indication of where one service starts and where the other begins, without a custom span, it is difficult to understand which part of your application makes that call. Even more so when the call fails, there will not be any indication on which method has failed. Thus making diagnostics difficult.
 </details>
 
