@@ -24,12 +24,16 @@ def process(n: int) -> int:
 +           logging.getLogger().exception(n)
 ```
 
+> **NOTE**: Do not copy the + character
+
 Or more elegantly,
 ```python
 logging.getLogger().exception("SeedNumber=%s",n)
 ```
 
 </details>
+
+<br/>
 
 #### ✅ Verify Results
 1. Open `Logs` app
@@ -69,7 +73,7 @@ def process(n: int) -> int:
 +           span.record_exception(e)
 +           span.set_status(Status(StatusCode.ERROR))
 ```
-
+> **NOTE**: Do not copy the + character
 </details>
 
 #### ✅ Verify Results
@@ -109,11 +113,12 @@ curl http://localhost:8090/quote
 		GETRequest request = new GETRequest("http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote");
 +		log.info(request.send());
 	}
+> **NOTE**: Do not copy the + character
 ```
 
 > **NOTE**: If you choose to log the data in the Python code, you will need to write more python code to configure the logging package for "info" logs. The default level is `WARNING`, which means that only events of this severity and higher will be tracked, unless the logging package is configured to do otherwise, reference:[https://docs.python.org/3/howto/logging.html](https://docs.python.org/3/howto/logging.html).
 </details>
-
+<br/>
 #### ✅ Verify Results
 1. Open `Logs` app
 1. Log entries should appear under the `service.name` of `order-backend-*`
