@@ -29,11 +29,8 @@ After making the changes above, restart your application by running `docker comp
 
 #### 📌 Task #2: Upload `Shop Application Overview` dashboard
 
-Download the following JSON to your local machine so that you can upload it later.
-
-[Shop Application Overview.json]([http](https://github.com/Reinhard-Pilz-Dynatrace/2025-Mrofrep/blob/main/Shop%20Application%20Overview.json))
-
-> NOTE: update this after the dry run
+Download the following JSON to your local machine.
+[Shop Application Overview.json](https://dt-url.net/nb2y0zo2)
 
 Then upload the dashboard to your tenant - navigate to `Apps`, open the `Dashboards` app, and select `Upload`.
 
