@@ -14,6 +14,7 @@ import java.net.URL;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Map.Entry;
+import io.opentelemetry.context.propagation.TextMapSetter;
 
 public final class GETRequest {
 
@@ -27,6 +28,19 @@ public final class GETRequest {
 	public final Map<String, String> headers() {
 		return this.headers;
 	}
+
+	public final void setHeader(String key, String value) {
+		synchronized(this.headers) {
+			this.headers.put(key, value);
+		}		
+	}
+
+	public static TextMapSetter<GETRequest> OTEL_SETTER = new TextMapSetter<GETRequest>() {
+	  @Override
+	  public void set(GETRequest carrier, String key, String value) {
+		  carrier.setHeader(key, value);
+	  }
+	};	
 
 	public String send() throws IOException {
 		URL url = new URL(this.sURL);
