@@ -5,40 +5,52 @@
 - [Various use cases](https://docs.dynatrace.com/docs/ingest-from/opentelemetry/collector/use-cases) 
 - [Adding a prefix to metrics](https://docs.dynatrace.com/docs/ingest-from/opentelemetry/getting-started/metrics/ingest/migration-guide-otlp-exporter#in-collector-additional-features)
 
-### 📌 Task 1: Add a prefix to your metrics
-
-Choose either:
-- Add prefix to only `shop.*` metrics, or
-- Add prefix to `all ingested` OpenTelemetry metrics
-
-You can find <mark>**otel-collector-config.yaml** </mark> in the directory
+Open the file <mark>**otel-collector-config.yaml** </mark> in the directory 
 
 ```
 collector/otel-collector-config.yaml
 ```
 
-Scroll down to the section called `processors`. Make the necessary changes under `metricstransform`.
+### Add a prefix to your metrics
 
-<details>
-  <summary>Expand to see solution for <strong>shop</strong> metrics</summary>
+Scroll down to the section called `processors`, under `metricstransform`. You will see the definition
 
-  <h4> Add additional rules </h4>
+```yaml
+- include: ^jvm\.(.*)$$
+  match_type: regexp
+  action: update
+  new_name: ${GITHUB_USER}.otel.jvm.$${1}
+```
 
-  ```yaml
-      - include: ^shop\.(.*)$$
+This section tells the collector to use `regex` as a matcher and updates all metric names that starts with `jvm`, with a prefix of `GITHUB_USER.otel`. You can manipulate the regex to match different criteria, for example
+
+```yaml
+- include: ^shop\.(.*)$$
+  match_type: regexp
+  action: update
+  new_name: ${GITHUB_USER}.otel.shop.$${1}
+```
+
+would allow you to modify only metric names that starts with `shop`, and update it with a prefix of `GITHUB_USER.otel`.
+
+### Manipulate filters
+
+Scroll down to the section called `processors`, under `filters`. You will see the definition
+
+```yaml
+  filter:
+    metrics:
+      exclude:
         match_type: regexp
-        action: update
-        new_name: ${GITHUB_USER}.otel.shop.$${1}
-  ```
-  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
-</details>
+        metric_names:
+          - .*\.jvm.class*
+```
 
-<br/>
+This section tells the collector to use `regex` as a matcher and <mark>excludes</mark> all metrics containing the words `.jvm.class`. You can manipulate the regex to match different criteria.
 
+### 📌 Task 1
 <details>
-  <summary>Expand to see solution for <strong>all</strong> metrics</summary>
-
-  <h4> Modify existing rule </h4>
+  <summary> 📌 Add prefix to <mark>all ingested</mark> OpenTelemetry metrics. Expand to see solution.</summary>
 
   ```yaml
       - include: ^(.*)$$
@@ -46,19 +58,14 @@ Scroll down to the section called `processors`. Make the necessary changes under
         action: update
         new_name: ${GITHUB_USER}.otel.$${1}
   ```
-  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
+  > **NOTE**: If you are copying the text above, please be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
-### 📌 Task 2 Manipulate filters
+<br/>
 
-Choose either:
-- Impose stricter filtering rules, or
-- Remove filter to allow all metrics to be sent
-
+### 📌 Task 2
 <details>
-  <summary>Expand to see solution for <strong>stricter</strong> filtering rules</summary>
-
-  Modify `metric_names` to exclude all JVM metrics under `filter` 
+  <summary> 📌 Filter out all <mark>jvm metrics</mark>. Expand to see solution.</summary>
 
   ```yaml
   filter:
@@ -68,27 +75,12 @@ Choose either:
         metric_names:
           - .*\.jvm.*
   ```
-  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
+  > **NOTE**: If you are copying the text above, please be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
 <br/>
 
-<details>
-  <summary>Expand to see solution for <strong>removing</strong> filter</summary>
-
-  In the service pipelines, under processes, remove `filter`
-
-  ```yaml
-    metrics:
-      receivers: [otlp]
-      processors: [batch, metricstransform]
-      exporters: [debug, otlphttp]
-  ```
-
-  > **NOTE**: be careful of the intendation. Please follow the preceding definitions if unsure.
-</details>
-
-#### Rebuild the containers
+### Rebuild the containers
 
 For the OpenTelemetry Collector, you will need to completely stop and remove all containers. To do so, run the command
 
