@@ -1,8 +1,6 @@
 ## Fork the GitHub Repository
 
-The demo application of todays session is located on [GitHub](https://github.com/Reinhard-Pilz-Dynatrace/2025-Mrofrep).
-
-> Note: update link after dry run
+The demo application of todays session is located on [GitHub](https://github.com/dynatrace-ace/Perform-2025-automating-and-intergrating-opentelemetry).
 
 You will need to fork that repository to your own GitHub Account in order to launch it.
 
