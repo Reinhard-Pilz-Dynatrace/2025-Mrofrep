@@ -108,8 +108,7 @@ Validate `filter`
 ```bash
 docker logs opentelemetry-collector 2>&1 | grep -i filter
 ```
-
-Expected output if strict filter rules are in place. If you chose to remove the filters, the above command will not yield any output.
+Expected output:
 
 ```bash
 2024-12-20T12:55:18.711Z        info    filterprocessor@v0.116.0/metrics.go:99  Metric filter configured        {"kind": "processor", "name": "filter", "pipeline": "metrics", "include match_type": "", "include expressions": [], "include metric names": [], "include metrics with resource attributes": null, "exclude match_type": "regexp", "exclude expressions": [], "exclude metric names": ["(.*)\\.otel.jvm.*"], "exclude metrics with resource attributes": null}
