@@ -35,7 +35,7 @@ For the metrics pipeline enable the pre-configured processors `metricstransform`
       exporters: [debug, otlphttp]
 ```
 
-> **NOTE**: Be careful of spaces and tabs in a yaml file. If in doubt, check the original file in the github repo and copy the spacing from the original file.
+> **NOTE**: If you are copying the text above, be careful of spaces and tabs in a yaml file. If in doubt, check the original file in the github repo and copy the spacing from the original file.
 
 </details>
 
