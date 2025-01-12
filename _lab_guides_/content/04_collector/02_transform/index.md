@@ -52,12 +52,12 @@ This section tells the collector to use `regex` as a matcher and <mark>excludes<
 <details>
   <summary> 📌 Add prefix to <mark>all ingested</mark> OpenTelemetry metrics. Expand to see solution.</summary>
 
-  ```yaml
+```yaml
       - include: ^(.*)$$
         match_type: regexp
         action: update
         new_name: ${GITHUB_USER}.otel.$${1}
-  ```
+```
   > **NOTE**: If you are copying the text above, please be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
@@ -67,14 +67,14 @@ This section tells the collector to use `regex` as a matcher and <mark>excludes<
 <details>
   <summary> 📌 Filter out all <mark>jvm metrics</mark>. Expand to see solution.</summary>
 
-  ```yaml
+```yaml
   filter:
     metrics:
       exclude:
         match_type: regexp
         metric_names:
           - .*\.jvm.*
-  ```
+```
   > **NOTE**: If you are copying the text above, please be careful of the intendation. Please follow the preceding definitions if unsure.
 </details>
 
