@@ -15,12 +15,12 @@ Scroll down to the section called `service` and make the necessary modifications
 <details>
   <summary>Expand to see solution</summary>
 
-  ```yaml
+```yaml
     logs:
       receivers: [otlp]
       processors: [batch]
       exporters: [debug, otlphttp]
-  ```
+```
 
 </details>
 
