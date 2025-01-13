@@ -66,7 +66,6 @@ public static void notifyProcessingBackend(Product product) throws Exception {
 	
 	  // Make outgoing call
 	  request.send();
-
 	} catch (Exception e) {
 	  outGoing.setAttribute(SemanticAttributes.HTTP_RESPONSE_STATUS_CODE, 500);
 	  outGoing.recordException(e);
