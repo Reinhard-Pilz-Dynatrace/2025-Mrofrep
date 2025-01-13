@@ -23,7 +23,7 @@ private static void reportActualRevenue(Product product) {
 }
   ```
 </details>
-
+<br/>
 After making the changes above, restart your application by running `docker compose up -d --build` in the terminal.
 
 
@@ -58,16 +58,17 @@ Then upload the dashboard to your tenant - navigate to `Apps`, open the `Dashboa
 8. Click on `Run` again.
 9. Navigate to the `Visual` tab, and select `Single value` for visualization.
 10. Expand the `Data mapping` configuration category:
-  * Set `Single value` to `sum(shop.revenue.actual)`
-11. Expand the `Single value` configuration category:
-	* Set `Label` to `Total Revenue`
-12. Close out of the edit window of the tile.
+    * Set `Single value` to `sum(shop.revenue.actual)`
+12. Expand the `Single value` configuration category:
+    * Set `Label` to `Total Revenue`
+14. Close out of the edit window of the tile.
 
 <details>
   <summary>Results:</summary>
   ![Tile 1](../../../assets/images/03-01-03-complete.png)
 </details>
 
+<br/>
 
 ### 📌 (Optional) Challenger Task
 

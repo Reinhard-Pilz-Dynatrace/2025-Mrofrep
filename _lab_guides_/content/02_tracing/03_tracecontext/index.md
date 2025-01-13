@@ -1,11 +1,11 @@
-## Creating Spans within the Order Backend
+## Correlate 2 services in a single trace
 
 ### Introduction
 
 Now that we're familiar with the OpenTelemetry setup, it's time to start tracing a few missing transactions.
 
 You may have noticed in the previous exercise, that the `/place-order` traces of service `order-api` are not only reaching out to the backend for credit card validation.<br />
-Another backend call addresses `http://localhost:54041/check-inventory/....`. And after checking out the distributed traces of `order-backend` it becomes clear, that the order backend is **already** reporting the incoming web requests to Dynatrace.
+Another backend call addresses `order-backend:54041/check-inventory/....`. And after checking out the distributed traces of `order-backend` it becomes clear, that the order backend is **already** reporting the incoming web requests to Dynatrace.
 
 One of the topics in this exercise we will be to make sure that Dynatrace is able to correlate both sides and show them within a single trace.
 
@@ -120,7 +120,7 @@ try (Scope scope = outGoing.makeCurrent()) {
 
 <br/>
 
-### 📌 Your First Task
+### 📌 Your Task
 
 In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
 1. Search for the method `handleCreditcards`. We have seen in our previous tasks, that Dynatrace receives correct signals at this point.
@@ -175,32 +175,3 @@ In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
 Open the `order-api` service in Dynatrace and open one of the `/place-order` traces from its Distributed traces. 
 
 The HTTP GET Request `/check-inventory` should now extend into the Order Backend.
-
-### 📌 Your Second Task
-
-In `order-backend/src/main/java/com/dtcookie/shop/backend/BackendServer.java`:
-1. Search for the method `checkStorageLocations`. In here the Storage Locations are getting checked whether the requested quantity of a specific product is available. It eventually calls the method `deductFromLocation` which can be found a little farther below. 
-2. Create an additional Span whenever `deductFromLocation` is getting invoked. You can use `checkStorageLocations` in order to figure out what additional code is necessary.   
-3. Restart the demo application to verify any changes:
-
-<details>
-  <summary>Show solution</summary>
-
-```java
-public static void deductFromLocation(StorageLocation location, String productName, int quantity) {
-    Span span = tracer.spanBuilder("deduct").setSpanKind(SpanKind.INTERNAL).startSpan();
-    try (Scope scope = span.makeCurrent()) {
-      location.deduct(productName, quantity);
-    } finally {
-      span.end();
-    }
-}
-```
-</details>
-<br/>
-
-### ✅ Verify results
-
-Open the `order-api` service in Dynatrace and open one of the `/place-order` traces from its Distributed traces. 
-
-Except for a few outliers these Traces should now contain the new Span - signalling that a suitable storage location has been found from which to deduct the ordered product(s). We will deal with these outliers in our next excercise.

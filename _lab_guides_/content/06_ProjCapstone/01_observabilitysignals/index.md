@@ -9,7 +9,7 @@
 - `main.py` is the main python progam
 - `utils.py` is the a sub python program that is called by main
 - `Dockerfile` is the file to dockerize the running of the python application. It contains the environment variables, installing the required python packages, start sequence etc.
-- `requirements.txt` is the required python pcakges
+- `requirements.txt` is the required python packages
 
 ### 📌 Your Task: Deploy the OpenTelemetry zero code insturmentation
 
@@ -24,6 +24,8 @@ Some ***hints***
 
 <details>
 <summary><strong>Expand for solution</strong></summary>
+
+The Dockerfile should contain these environment variables in order to receive traces, metrics and logs from the Python service.
 
 ```properties
 ## Python will require gRPC
@@ -49,9 +51,20 @@ ENTRYPOINT ["sh", "-c", "opentelemetry-instrument python order-quotes/main.py"]
 </br>
 
 💡 Questions
-- What happens when you don't set `OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA`?
-- If you had enabled it eariler, disable it and rebuild the application. What do you observe in the Collector logs?
-- Run `docker logs opentelemetry-collector 2>&1 | grep -i dropped` and observe the output. 
+<details><summary> 💡 What happens when you don't set <mark>OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA`</mark>? </summary> Dynatrace will not ingest the metrics and the Otel collector will register that the metrics has been dropped.</details>
+<details><summary> 💡 Where can you see that the Otel collector is dropping the metrics? </summary>
+
+Collector logs. You can get the logs by running this command
+     
+```sh
+docker logs opentelemetry-collector 2>&1 | grep -i dropped
+```
+
+If you had enabled it eariler, disable it, do a docker compose down to shutdown everything and start the apps up again to understand the impact.
+
+</details>
+
+<br>
 
 ### ✅ Verify Results
 

@@ -32,7 +32,7 @@ Technicall, if you are just concern in connecting the services together, there i
 
 <br/>
 
-If you are going to enrich the method with a custom OpenTelemetry Span, ensure that
+We highly recommend that you enrich the method with a custom OpenTelemetry Span, and if you are attempting it, ensure that
 * You are using the correct Span Kind
 * You add semantic attributes. HTTP_METHOD and HTTP_URL will be sufficient for Dynatrace.
 * You handle exceptions properly in case the outgoing call fails
@@ -56,12 +56,12 @@ public static void notifyProcessingBackend(Product product) throws Exception {
 
 ```java
 public static void notifyProcessingBackend(Product product) throws Exception {
-	String call = "http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote"
+	String call = "http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote";
 	Span outGoing = tracer.spanBuilder("/GET order-quotes python service").setSpanKind(SpanKind.CLIENT).startSpan();
 	GETRequest request = new GETRequest("http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote");
 	try (Scope scope = outGoing.makeCurrent()) {
 	  outGoing.setAttribute(SemanticAttributes.HTTP_METHOD, "GET");
-	  outGoing.setAttribute(SemanticAttributes.HTTP_URL, call;
+	  outGoing.setAttribute(SemanticAttributes.HTTP_URL, call);
 	  openTelemetry.getPropagators().getTextMapPropagator().inject(Context.current(), request, GETRequest.OTEL_SETTER);
 	
 	  // Make outgoing call
