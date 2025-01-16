@@ -10,16 +10,16 @@ processors:
   batch:
   metricstransform:
     transforms:
-      - include: ^jvm\.(.*)$$
+      - include: ^(.*)$$
         match_type: regexp
         action: update
-        new_name: ${GITHUB_USER}.otel.jvm.$${1}
+        new_name: ${GITHUB_USER}.otel.$${1}
   filter:
     metrics:
       exclude:
         match_type: regexp
         metric_names:
-          - (.*)\.otel.jvm.class.*
+          - .*\.jvm.*
 
 exporters:
   debug:
@@ -34,11 +34,15 @@ service:
     traces:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, otlphttp]
     metrics:
       receivers: [otlp]
       processors: [batch]
-      exporters: [debug]
+      exporters: [debug, otlphttp]
+    logs:
+      receivers: [otlp]
+      processors: [batch]
+      exporters: [debug, otlphttp]
   #telemetry:
   #  logs:
   #    level: debug
