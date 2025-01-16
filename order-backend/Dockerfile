@@ -45,8 +45,8 @@ ENV OTEL_EXPORTER_OTLP_METRICS_PROTOCOL=http/protobuf
 ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://opentelemetry-collector:4318
 
 # environment variables to setup logs
-#ENV OTEL_LOGS_EXPORTER=otlp
-#ENV OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=http/protobuf
+ENV OTEL_LOGS_EXPORTER=otlp
+ENV OTEL_EXPORTER_OTLP_LOGS_PROTOCOL=http/protobuf
 ##--required if NOT using collector--
 #ENV OTEL_EXPORTER_OTLP_LOGS_ENDPOINT=https://${DT_ENVIRONMENT_HOST}/api/v2/otlp/v1/logs
 #ENV OTEL_EXPORTER_OTLP_LOGS_HEADERS=Authorization="Api-Token ${DT_API_TOKEN}"
