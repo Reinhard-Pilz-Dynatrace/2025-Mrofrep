@@ -39,6 +39,7 @@ public class FrontendServer {
     private static final LongCounter confirmedPurchasesCounter = meter.counterBuilder("shop.purchases.confirmed").setDescription("Number of confirmed purchases").build();
     private static final LongCounter expectedRevenueCounter = meter.counterBuilder("shop.revenue.expected").setDescription("Expected revenue in dollar").build();
 	private static final LongCounter actualRevenueCounter = meter.counterBuilder("shop.revenue.actual").setDescription("Actual revenue in dollar").build();
+	private static final LongCounter attemptedPurchasesCounter = meter.counterBuilder("shop.purchases.attempted").setDescription("Attempted number of purchases").build();
 	private static final Tracer tracer = openTelemetry.getTracer("manual-instrumentation");
 
 
@@ -59,6 +60,7 @@ public class FrontendServer {
 		Product product = Product.random();
 		String productID = product.getID();
 		reportExpectedRevenue(product);
+		reportAttemptedPurchases(product);
 		try (Connection con = Database.getConnection(10, TimeUnit.SECONDS)) {
 			try (Statement stmt = con.createStatement()) {
 				stmt.executeUpdate("INSERT INTO orders VALUES (" + productID + ")");
@@ -153,8 +155,18 @@ public class FrontendServer {
 	private static void reportActualRevenue(Product product) {
 		Attributes attributes = Attributes.builder()
         .put(AttributeKey.stringKey("product"), product.getName())
+		.put(AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"))
         .build();
 		
 		actualRevenueCounter.add(product.getPrice(), attributes);		
 	}
+
+	private static void reportAttemptedPurchases(Product product) {
+        Attributes attributes = Attributes.builder()
+        .put(AttributeKey.stringKey("product"), product.getName())
+        .put(AttributeKey.stringKey("user"), System.getenv("GITHUB_USER"))
+        .build();
+
+        attemptedPurchasesCounter.add(1, attributes);
+    }	
 }
