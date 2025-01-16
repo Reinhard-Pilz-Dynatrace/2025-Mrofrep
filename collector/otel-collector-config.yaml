@@ -37,7 +37,7 @@ service:
       exporters: [debug, otlphttp]
     metrics:
       receivers: [otlp]
-      processors: [batch]
+      processors: [batch, metricstransform, filter]
       exporters: [debug, otlphttp]
     logs:
       receivers: [otlp]
