@@ -1,5 +1,12 @@
 ## Project Capstone (bonus)
 
+> 💡 **Hint:** If you got lost in the previous section executing the command below will take care of everything
+```
+docker compose down && git reset --hard && git checkout logs-finished
+```
+<br />
+<hr/>
+
 *Capstone (noun) [ˈkap-ˌstōn]*
 - the high point
 - crowning achievement

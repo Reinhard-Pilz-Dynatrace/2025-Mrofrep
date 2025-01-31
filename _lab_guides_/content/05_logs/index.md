@@ -1,5 +1,13 @@
 ## Ingesting logs via OpenTelemetry
 
+> 💡 **Hint:** If you got lost in the previous section executing the command below will take care of everything
+```
+docker compose down && git reset --hard && git checkout collector-finished
+```
+
+<br />
+<hr/>
+
 📝 **Reference:** Dynatrace documentation [OpenTelemetry Logs](https://docs.dynatrace.com/docs/shortlink/otel-overview-logs)
 
 ### 📌 Task

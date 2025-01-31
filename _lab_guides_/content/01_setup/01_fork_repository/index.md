@@ -8,5 +8,3 @@ You will need to fork that repository to your own GitHub Account in order to lau
 
 
 <img src="../../../assets/images/01_setup_02_create_fork.png" alt="Fork Repository" style="width:500px" />
-
-> Note: update images after dry run
