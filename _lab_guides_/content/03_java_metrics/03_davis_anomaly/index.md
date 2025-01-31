@@ -13,9 +13,9 @@ Lets create a Davis anomaly detector based off of the `shop.database.connections
 ![New Detector](../../../assets/images/03-03-01-new_detector.png)
 
 3. Under `Get started`, set the title to `Shop: Connections Active`.
-4. Expand the `Configure your query` category. Copy/Paste the following DQL under `Query` and replace the filter with your GitHub username.
+4. Expand the `Configure your query` category, copy/paste the following DQL under `Query`.
 ```
-timeseries avg(shop.database.connections.active), filter:{matchesValue(entityAttr(dt.entity.service, "entity.name"), "order-backend-<your-github-username>")}
+timeseries avg(shop.database.connections.active), filter:{matchesValue(entityAttr(dt.entity.service, "entity.name"), "order-backend-*")}
 ```
 5. Expand the `Customize parameters` category, and set the following configuration.
 | Field | Value |
