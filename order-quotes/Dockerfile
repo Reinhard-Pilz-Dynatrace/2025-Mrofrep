@@ -18,23 +18,21 @@ ARG DT_API_TOKEN
 ARG DT_ENVIRONMENT_HOST
 
 ## Python will require gRPC
-#ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://opentelemetry-collector:4317
+ENV OTEL_EXPORTER_OTLP_ENDPOINT=http://opentelemetry-collector:4317
 
 ## setup for traces
-#ENV OTEL_SERVICE_NAME=order-quotes-${GITHUB_USER}
-#ENV OTEL_TRACES_EXPORTER=otlp
+ENV OTEL_SERVICE_NAME=order-quotes-${GITHUB_USER}
+ENV OTEL_TRACES_EXPORTER=otlp
 
 ## setup for metrics
-#ENV OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA
-#ENV OTEL_METRICS_EXPORTER=otlp
+ENV OTEL_EXPORTER_OTLP_METRICS_TEMPORALITY_PREFERENCE=DELTA
+ENV OTEL_METRICS_EXPORTER=otlp
 
 ## setup for logs exporter and logging
-#ENV OTEL_LOGS_EXPORTER=otlp
-#ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
+ENV OTEL_LOGS_EXPORTER=otlp
+ENV OTEL_PYTHON_LOGGING_AUTO_INSTRUMENTATION_ENABLED=true
 #ENV OTEL_PYTHON_LOG_LEVEL=error
 ## More configuration examples can be found here: https://opentelemetry.io/docs/zero-code/python/configuration/#logging
 
 ## Start auto-instrumentation
-#ENTRYPOINT ["sh", "-c", "opentelemetry-instrument python order-quotes/main.py"]
-
-ENTRYPOINT ["sh", "-c", "python order-quotes/main.py"]
+ENTRYPOINT ["sh", "-c", "opentelemetry-instrument python order-quotes/main.py"]

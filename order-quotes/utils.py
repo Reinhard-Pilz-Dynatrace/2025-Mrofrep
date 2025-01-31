@@ -26,4 +26,6 @@ def process(n: int) -> int:
             f = fibonacci(n)
             return f
         except Exception as e:
-            logging.getLogger().warning("There is an exception!")
+            logging.getLogger().exception("SeedNumber=%s",n)
+            span.record_exception(e)
+            span.set_status(Status(StatusCode.ERROR))

@@ -9,11 +9,10 @@ import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ThreadLocalRandom;
 import java.util.concurrent.TimeUnit;
+import java.util.logging.LogManager;
 
+import javax.naming.Context;
 import javax.servlet.http.HttpServletRequest;
-
-import org.apache.logging.log4j.LogManager;
-import org.apache.logging.log4j.Logger;
 
 import com.dtcookie.database.Database;
 import com.dtcookie.shop.Ports;
@@ -28,7 +27,6 @@ import io.opentelemetry.api.trace.Span;
 import io.opentelemetry.api.trace.SpanKind;
 import io.opentelemetry.api.trace.StatusCode;
 import io.opentelemetry.api.trace.Tracer;
-import io.opentelemetry.context.Context;
 import io.opentelemetry.context.Scope;
 import io.opentelemetry.context.propagation.TextMapGetter;
 import io.opentelemetry.semconv.SemanticAttributes;
@@ -87,10 +85,25 @@ public class BackendServer {
 	}
 
 	public static void notifyProcessingBackend(Product product) throws Exception {
-		
+		String call = "http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote";
+		Span outGoing = tracer.spanBuilder("/GET order-quotes python service").setSpanKind(SpanKind.CLIENT).startSpan();
 		GETRequest request = new GETRequest("http://order-quotes-" + System.getenv("GITHUB_USER") + ":" + "8090/quote");
-		// GETRequest request = new GETRequest("http://<replace with remote IP address>/app");
-		request.send();
+		try (Scope scope = outGoing.makeCurrent()) {
+		outGoing.setAttribute(SemanticAttributes.HTTP_METHOD, "GET");
+		outGoing.setAttribute(SemanticAttributes.HTTP_URL, call);
+		openTelemetry.getPropagators().getTextMapPropagator().inject(Context.current(), request, GETRequest.OTEL_SETTER);
+		
+		// Make outgoing call and send the output to log4j
+		log.info(request.send());
+
+		} catch (Exception e) {
+		outGoing.setAttribute(SemanticAttributes.HTTP_RESPONSE_STATUS_CODE, 500);
+		outGoing.recordException(e);
+		outGoing.setStatus(StatusCode.ERROR);
+		throw e;
+		} finally {
+		outGoing.end();
+		}
 	}
 
 	public static String handleCreditcards(HttpServletRequest request) throws Exception {
@@ -177,7 +190,7 @@ public class BackendServer {
 			span.end();
 		}
 	}
-	
+
 	public static void deductFromLocation(StorageLocation location, String productName, int quantity) {
 		Span span = tracer.spanBuilder("deduct").setSpanKind(SpanKind.INTERNAL).startSpan();
 		try (Scope scope = span.makeCurrent()) {
@@ -186,7 +199,7 @@ public class BackendServer {
 			span.setAttribute("quantity", quantity);
 			location.deduct(productName, quantity);
 		} finally {
-		  span.end();
+			span.end();
 		}
 	}
 
