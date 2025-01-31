@@ -6,3 +6,11 @@ What you will learn
 - How to create and populate custom metrics using OpenTelemetry
 - How to visualize these metrics in Dynatrace
 - How to alert on these metrics
+
+<br />
+<hr/>
+
+> 💡 **Hint:** If you got lost in the previous section executing the command below will take care of everything
+```
+docker compose down && git reset --hard && git checkout tracing-finished
+```
