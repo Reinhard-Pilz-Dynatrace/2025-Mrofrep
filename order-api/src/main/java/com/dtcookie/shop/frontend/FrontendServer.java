@@ -113,13 +113,18 @@ public class FrontendServer {
 			span.setAttribute("product.name", product.getName());
 			reportPurchases(product);
 			reportActualRevenue(product);
-			for (int i = 0; i < 50; i++) {
-				Span childSpan = tracer.spanBuilder("persist-purchase-confirmation-" + i).setParent(Context.current().with(span)).startSpan();
-				try {
-					Thread.sleep(1);
-				} finally {
-					childSpan.end();
-				}
+			
+			// Consolidate batch persistence into single span to avoid trace bloat
+			Span persistSpan = tracer.spanBuilder("persist-purchase-confirmation-batch")
+				.setParent(Context.current().with(span))
+				.startSpan();
+			try {
+				// Simulate batch persistence operation (50 iterations consolidated)
+				Thread.sleep(50);
+				persistSpan.addEvent("batch-persistence-completed", 
+					Attributes.of(AttributeKey.longKey("batch.size"), 50L));
+			} finally {
+				persistSpan.end();
 			}
 		} catch (Exception e) {
 			span.recordException(e);
