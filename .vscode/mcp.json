@@ -1,0 +1,12 @@
+{
+  "servers": {
+    "dynatrace-mcp-prod": {
+      "type": "stdio",
+      "command": "npx",
+      "args": ["-y", "@dynatrace-oss/dynatrace-mcp-server@latest"],
+      "env": {
+        "DT_ENVIRONMENT": "https://siz65484.apps.dynatrace.com"
+      }
+    }
+  }
+}
