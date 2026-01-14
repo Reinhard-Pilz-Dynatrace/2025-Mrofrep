@@ -6,6 +6,9 @@
             "version": "none",
             "installMaven": "true"
         },
+        "ghcr.io/devcontainers/features/node:1": {
+            "version": "lts"
+        },
         "docker-in-docker": "latest"
     },
     "forwardPorts": [4317],  
